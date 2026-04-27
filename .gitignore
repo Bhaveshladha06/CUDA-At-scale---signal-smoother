@@ -1,0 +1,5 @@
+bin/
+data/input/
+data/output/
+*.o
+*.d

@@ -1,0 +1,49 @@
+CUDA Batch Signal Smoother - Install and Run
+============================================
+
+Prerequisites
+-------------
+1. Linux environment
+2. NVIDIA GPU with CUDA support
+3. CUDA Toolkit (nvcc available in PATH)
+4. Python 3.8+ (standard library only — no pip installs needed)
+5. make
+
+Build and Run
+-------------
+From the repository root:
+
+    chmod +x run.sh
+    ./run.sh
+
+Manual Commands (optional)
+--------------------------
+1. Generate input dataset:
+   python3 src/generate_dataset.py \
+       --output data/input --count 200 --length 1024 --noise 0.25
+
+2. Build executable:
+   make
+
+3. Run smoother:
+   ./bin/batch_signal_smoother data/input data/output
+
+Optional flags for generate_dataset.py
+---------------------------------------
+  --count   N      Number of signals (default 200)
+  --length  N      Samples per signal (default 1024)
+  --noise   F      White-noise std-dev (default 0.25)
+  --seed    N      Base random seed    (default 42)
+
+Output Artifacts
+----------------
+1. Smoothed signal files (float32 binary):
+   data/output/smoothed_0000.bin … smoothed_0199.bin
+
+2. Execution proof log:
+   data/output/run_log.txt
+   (contains timestamp, signal dimensions, kernel time, throughput)
+
+Cleaning Up
+-----------
+    make clean      # removes binary and all generated data files
